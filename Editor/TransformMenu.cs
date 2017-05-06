@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 using UnityEditor;
-#endif
+//#endif
 
 namespace TransformTools
 {
     public class TransformMenu : EditorWindow
     {
-        [MenuItem("Transform/Group %g",false,1)]
+        [MenuItem("Transform/Transform Wizard #%t",false,0)]
+        static void TransformWindow()
+        {
+            TransformWizard.ShowWindow();
+        }
+        
+        [MenuItem("Transform/Group %g",false,1)]        
         static void GroupSelections()
         {GroupTools.Group();}
 
@@ -54,76 +60,28 @@ namespace TransformTools
         static void AlignZ_Max()
         { AlignTools.Align(AlignTools.AlignAxis.z, AlignTools.AlignMode.max); }
 
-        [MenuItem("Transform/Align Tool Window",false,21)]
-        static void ShowAlignToolWindow()
-        {
-            AlignToolsWindow.ShowWindow();
-        }
-
-        [MenuItem("Transform/Distribute by X #%x", false, 50)]
+        [MenuItem("Transform/Distribute by X", false, 50)]
         static void DistributeX()
         {
             DistributeTools.AlongAxis(0);
         }
 
-        [MenuItem("Transform/Distribute by Y #%y", false, 51)]
+        [MenuItem("Transform/Distribute by Y", false, 51)]
         static void DistributeY()
         {
             DistributeTools.AlongAxis(1);
         }
 
-        [MenuItem("Transform/Distribute by Z #%z", false, 52)]
+        [MenuItem("Transform/Distribute by Z", false, 52)]
         static void DistributeZ()
         {
             DistributeTools.AlongAxis(2);
         }
 
-        [MenuItem("Transform/Random Transition/X", false, 70)]
-        static void RandomPosX()
-        {
-            RandomTools.RandomPosition(0, 1f);
-        }
-
-        [MenuItem("Transform/Random Transition/Y", false, 71)]
-        static void RandomPosY()
-        {
-            RandomTools.RandomPosition(1, 1f);
-        }
-
-        [MenuItem("Transform/Random Transition/Z", false, 72)]
-        static void RandomPosZ()
-        {
-            RandomTools.RandomPosition(2, 1f);
-        }
-
-        [MenuItem("Transform/Random Rotation/X", false, 73)]
-        static void RandomRotX()
-        {
-            RandomTools.RandomRotation(0);
-        }
-
-        [MenuItem("Transform/Random Rotation/Y", false, 74)]
-        static void RandomRotY()
-        {
-            RandomTools.RandomRotation(1);
-        }
-
-        [MenuItem("Transform/Random Rotation/Z", false, 75)]
-        static void RandomRotZ()
-        {
-            RandomTools.RandomRotation(2);
-        }
-
-        [MenuItem("Transform/Random Scale", false, 76)]
-        static void RandomScale()
-        {
-            RandomTools.RandomScale(1f);
-        }
-
-        [MenuItem("Transform/Place In Bound", false, 90)]
+        [MenuItem("Transform/Scatter In Bound", false, 70)]
         static void PlaceInBound()
         {
             PlaceTools.InBound();
-        }
+        }        
     }
 }

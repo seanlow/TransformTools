@@ -12,6 +12,8 @@ public class DistributeTools
 {
     public static void AlongAxis(int axis)
     {
+        if (!Selection.activeTransform) { Debug.Log("No selection"); return; }
+
         List<Transform> selected;
         var count = Selection.transforms.Length;
         float distance, gap, startPoint;
