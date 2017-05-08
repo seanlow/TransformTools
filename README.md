@@ -3,7 +3,7 @@ Set of transform tools for Unity.
 Clone/ Download the "TransformTools" repo into Unity Asset folder.<br/>
 A new "Transform" menu will appear in Unity.<br/>
 
-<img src="https://github.com/seanlow/resources/images/TransformWizard.PNG">
+<img src="https://raw.githubusercontent.com/seanlow/resources/master/images/TransformWizard.PNG">
 
 ### Group/UnGroup
 - Maya-like Grouping command
