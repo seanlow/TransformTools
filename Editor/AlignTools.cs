@@ -8,90 +8,6 @@ using UnityEditor;
 
 using System.Linq;
 
-//public class AlignToolsWindow: EditorWindow
-//{
-//    GUIContent xavg, xmax, xmin, yavg, ymin, ymax, zavg, zmin, zmax;
-
-//    public static void ShowWindow()
-//    {
-//        var window = GetWindow<AlignToolsWindow>();
-//        window.titleContent = new GUIContent("Align Tools");
-//        window.maxSize = new Vector2(135f, 170f);
-//        window.minSize = window.maxSize;
-//        window.ShowUtility();
-//        //AlignToolsWindow window=(AlignToolsWindow)EditorWindow.GetWindow(typeof(AlignToolsWindow), false, "Align and distribute tool");
-//        //window.Focus();
-//        //window.Repaint();        
-//        //return window;
-//    }
-
-//    void OnEnable()
-//    {
-//        xmin = new GUIContent((Texture)Resources.Load("XMin"), "Align X minimum");
-//        xavg = new GUIContent((Texture)Resources.Load("XAvg"), "Align X average");
-//        xmax = new GUIContent((Texture)Resources.Load("XMax"), "Align X maximum");
-
-//        ymin = new GUIContent((Texture)Resources.Load("YMin"), "Align Y minimum");
-//        yavg = new GUIContent((Texture)Resources.Load("YAvg"), "Align Y average");
-//        ymax = new GUIContent((Texture)Resources.Load("YMax"), "Align Y maximum");
-
-//        zmin = new GUIContent((Texture)Resources.Load("ZMin"), "Align Z minimum");
-//        zavg = new GUIContent((Texture)Resources.Load("ZAvg"), "Align Z average");
-//        zmax = new GUIContent((Texture)Resources.Load("ZMax"), "Align Z maximum");
-//    }
-//    void OnGUI()
-//    {
-
-//        GUILayout.BeginArea(new Rect(10, 10, 135, 170));
-
-//        GUILayout.BeginHorizontal();
-//        if (GUILayout.Button(xmin, GUILayout.Height(35), GUILayout.Width(35)))
-//        {
-//            AlignTools.Align(AlignTools.AlignAxis.x, AlignTools.AlignMode.min);
-//        }
-//        if (GUILayout.Button(xavg, GUILayout.Height(35), GUILayout.Width(35)))
-//        {
-//            AlignTools.AlignAverage(AlignTools.AlignAxis.x);
-//        }
-//        if (GUILayout.Button(xmax, GUILayout.Height(35), GUILayout.Width(35)))
-//        {
-//            AlignTools.Align(AlignTools.AlignAxis.x, AlignTools.AlignMode.max);
-//        }
-//        GUILayout.EndHorizontal();
-
-//        GUILayout.BeginHorizontal();
-//        if (GUILayout.Button(ymin, GUILayout.Height(35), GUILayout.Width(35)))
-//        {
-//            AlignTools.Align(AlignTools.AlignAxis.y, AlignTools.AlignMode.min);
-//        }
-//        if (GUILayout.Button(yavg, GUILayout.Height(35), GUILayout.Width(35)))
-//        {
-//            AlignTools.AlignAverage(AlignTools.AlignAxis.y);
-//        }
-//        if (GUILayout.Button(ymax, GUILayout.Height(35), GUILayout.Width(35)))
-//        {
-//            AlignTools.Align(AlignTools.AlignAxis.y, AlignTools.AlignMode.max);
-//        }
-//        GUILayout.EndHorizontal();
-
-//        GUILayout.BeginHorizontal();
-//        if (GUILayout.Button(zmin, GUILayout.Height(35), GUILayout.Width(35)))
-//        {
-//            AlignTools.Align(AlignTools.AlignAxis.z, AlignTools.AlignMode.min);
-//        }
-//        if (GUILayout.Button(zavg, GUILayout.Height(35), GUILayout.Width(35)))
-//        {
-//            AlignTools.AlignAverage(AlignTools.AlignAxis.z);
-//        }
-//        if (GUILayout.Button(zmax, GUILayout.Height(35), GUILayout.Width(35)))
-//        {
-//            AlignTools.Align(AlignTools.AlignAxis.z, AlignTools.AlignMode.max);
-//        }
-//        GUILayout.EndHorizontal();
-
-//        GUILayout.EndArea();
-//    }
-//}
 public static class AlignTools
 {
     public enum AlignMode { avg, min, max };
@@ -119,7 +35,7 @@ public static class AlignTools
             }
         }
         float avg = total / selected.Length;
-        //Debug.Log("avg: " + avg);
+        
         Undo.RecordObjects(Selection.transforms, "Align Average by " + _axis.ToString().ToUpper());
         foreach (var trans in selected)
         {
@@ -161,12 +77,10 @@ public static class AlignTools
         {
             case AlignMode.min:
                 targetPos = selected[0].position;
-                Debug.Log(targetPos.x);
             break;
 
             case AlignMode.max:
                 targetPos = selected[selected.Length-1].position;
-                Debug.Log(targetPos.x);
                 break;
         }
 

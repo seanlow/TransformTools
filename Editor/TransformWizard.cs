@@ -7,7 +7,7 @@ using UnityEditor;
 
 public class TransformWizard : EditorWindow
 {
-    GUIContent xavg, xmax, xmin, yavg, ymin, ymax, zavg, zmin, zmax, distx, disty, distz, scatter;
+    GUIContent xavg, xmax, xmin, yavg, ymin, ymax, zavg, zmin, zmax, distx, disty, distz, scatter, planter;
     static float transMin, transMax, rotMin, rotMax, scaleMin, scaleMax;
     static string randomAxisKey = "TransformRandomAxis";
     static string transMinKey = "TransformRandomSTransMin";
@@ -40,11 +40,12 @@ public class TransformWizard : EditorWindow
         zavg = new GUIContent((Texture)Resources.Load("ZAvg"), "average");
         zmax = new GUIContent((Texture)Resources.Load("ZMax"), "maximum");
 
-        distx = new GUIContent((Texture)Resources.Load("DistX"), "x");
-        disty = new GUIContent((Texture)Resources.Load("DistY"), "y");
-        distz = new GUIContent((Texture)Resources.Load("DistZ"), "z");
+        distx = new GUIContent((Texture)Resources.Load("DistX"), "along X");
+        disty = new GUIContent((Texture)Resources.Load("DistY"), "along Y");
+        distz = new GUIContent((Texture)Resources.Load("DistZ"), "along Z");
 
         scatter = new GUIContent((Texture)Resources.Load("Scatter"), "scatter in bound");
+        planter = new GUIContent((Texture)Resources.Load("Planter"), "planter in bound");
 
         // Load EditorPrefs
         if (EditorPrefs.HasKey(randomAxisKey))
@@ -148,23 +149,17 @@ public class TransformWizard : EditorWindow
         GUILayout.BeginVertical("box");
 
         GUILayout.BeginHorizontal();
-        GUILayout.Label("X", EditorStyles.boldLabel, GUILayout.MaxWidth(30));
+        GUILayout.Label("", EditorStyles.boldLabel, GUILayout.MaxWidth(30));
         if (GUILayout.Button(distx, GUILayout.Height(35), GUILayout.Width(35)))
         {
             DistributeTools.AlongAxis(0);
         }
-        GUILayout.EndHorizontal();
 
-        GUILayout.BeginHorizontal();
-        GUILayout.Label("Y", EditorStyles.boldLabel, GUILayout.MaxWidth(30));
         if (GUILayout.Button(disty, GUILayout.Height(35), GUILayout.Width(35)))
         {
             DistributeTools.AlongAxis(1);
         }
-        GUILayout.EndHorizontal();
 
-        GUILayout.BeginHorizontal();
-        GUILayout.Label("Z", EditorStyles.boldLabel, GUILayout.MaxWidth(30));
         if (GUILayout.Button(distz, GUILayout.Height(35), GUILayout.Width(35)))
         {
             DistributeTools.AlongAxis(2);
@@ -173,19 +168,28 @@ public class TransformWizard : EditorWindow
         GUILayout.EndVertical();
     }
 
-    void ScatterGUI()
+    void PlacerGUI()
     {
-        GUILayout.Label("Scatter in selected bound", EditorStyles.boldLabel);
-        GUILayout.BeginVertical("box");
-        GUILayout.BeginHorizontal();   
-             
+        GUILayout.BeginHorizontal();
+
+        GUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.Label("Scatter", EditorStyles.boldLabel);
         if (GUILayout.Button(scatter, GUILayout.Height(35), GUILayout.Width(35)))
         {
             PlaceTools.InBound();
         }
+        GUILayout.EndVertical();
+
+        GUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.Label("Planter", EditorStyles.boldLabel);
+        if (GUILayout.Button(planter, GUILayout.Height(35), GUILayout.Width(35)))
+        {
+            PlaceTools.Planter();
+        }
+        GUILayout.EndVertical();
+
 
         GUILayout.EndHorizontal();
-        GUILayout.EndVertical();
     }
 
     void RandomGUI()
@@ -243,9 +247,11 @@ public class TransformWizard : EditorWindow
     }
     void OnGUI()
     {
+        GUILayout.BeginScrollView(new Vector2 (0,0));
         AlignmentGUI();
         DistributeGUI();
         RandomGUI();
-        ScatterGUI();
+        PlacerGUI();
+        GUILayout.EndScrollView();
     }
 }

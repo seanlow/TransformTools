@@ -78,10 +78,15 @@ namespace TransformTools
             DistributeTools.AlongAxis(2);
         }
 
-        [MenuItem("Transform/Scatter In Bound", false, 70)]
+        [MenuItem("Transform/Scatter", false, 70)]
         static void PlaceInBound()
         {
             PlaceTools.InBound();
-        }        
+        }
+        [MenuItem("Transform/Planter", false, 70)]
+        static void PlanterInBound()
+        {
+            PlaceTools.Planter();
+        }
     }
 }
